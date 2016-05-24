@@ -2,6 +2,8 @@
 // when user clicks anywhere on the page, the "makeQuote" function is called
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 
+var intervalID = window.setInterval(printQuote, 30000);
+
 var randomQuotes = [
 	{
 		quote : "There is always more misery among the lower classes than there is humanity in the higher.",
@@ -49,15 +51,24 @@ var randomQuotes = [
 		source : "Brené Brown"
 	},
 	{
-		quote : "The fault, dear Brutus, is not in our stars, but in ourselves, that we are underlings",
+		quote : "The fault, dear Brutus, is not in our stars, but in ourselves, that we are underlings.",
 		source : "William Shakespeare",
 		citation : "Julius Caesar",
 		year : 1599
 	}
 ];
 
+var usedQuotes = [];
+
 function getRandomQuote() {
+	if (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 in usedQuotes)
+	{
+		// clear usedQuotes
+	}
 	var selector = Math.floor(Math.random() * 10);
+	if (!selector in usedQuotes) {
+		// add selector to usedQuotes	
+	}
 	return randomQuotes[selector];
 }
 
@@ -74,6 +85,12 @@ function printQuote() {
 	}
 	quoteHTML = quoteHTML + '</p>';
 	document.getElementById('quote-box').innerHTML = quoteHTML;
+	document.body.style.backgroundColor = getRandomColor();
 }
 
-console.log(getRandomQuote());
+var randomColor = ["IndianRed", "DarkOrange", "green", "indigo", "SteelBlue", "GoldenRod", "DarkSalmon", "DimGrey", "OliveDrab", "Sienna"];
+
+function getRandomColor() {
+	var randomNumber = Math.floor(Math.random() * 10); 
+	return randomColor[randomNumber];
+}
