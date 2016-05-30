@@ -2,14 +2,15 @@
 // when user clicks anywhere on the page, the "makeQuote" function is called
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 
-var intervalID = window.setInterval(printQuote, 30000);
+window.setInterval(printQuote, 30000);
 
 var randomQuotes = [
 	{
 		quote : "There is always more misery among the lower classes than there is humanity in the higher.",
 		source : "Victor Hugo",
 		citation : "Les Misérables",
-		year : 1862
+		year : 1862,
+		tag : "humanity"
 	},
 	{
 		quote : "If you live for people's acceptance, you'll die from their rejection.",
@@ -18,7 +19,8 @@ var randomQuotes = [
 	},
 	{
 		quote : "Education without values, as useful as it is, seems rather to make man a more clever devil.",
-		source : "C.S. Lewis"
+		source : "C.S. Lewis",
+		tag : "education"
 	},
 	{
 		quote : "We have a right to believe whatever we want, but not everything we believe is right.",
@@ -58,18 +60,19 @@ var randomQuotes = [
 	}
 ];
 
-var usedQuotes = [];
+var randomColor = ["IndianRed", "DarkOrange", "green", "indigo", "SteelBlue", "GoldenRod", "DarkSalmon", "DimGrey", "OliveDrab", "Sienna"];
+
+var quoteContainer = [];
 
 function getRandomQuote() {
-	if (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 in usedQuotes)
-	{
-		// clear usedQuotes
-	}
-	var selector = Math.floor(Math.random() * 10);
-	if (!selector in usedQuotes) {
-		// add selector to usedQuotes	
-	}
+	var selector = Math.floor(Math.random() * randomQuotes.length);
+	quoteContainer.push(randomQuotes[selector]);
 	return randomQuotes[selector];
+}
+
+function getRandomColor() {
+	var randomNumber = Math.floor(Math.random() * randomColor.length); 
+	return randomColor[randomNumber];
 }
 
 function printQuote() {
@@ -84,13 +87,17 @@ function printQuote() {
 		quoteHTML = quoteHTML + '<span class="year">' + selectedQuote.year + '</span> </p>';
 	}
 	quoteHTML = quoteHTML + '</p>';
+	randomQuotes.splice(randomQuotes.indexOf(selectedQuote), 1);
+	var newColor = getRandomColor();
 	document.getElementById('quote-box').innerHTML = quoteHTML;
-	document.body.style.backgroundColor = getRandomColor();
+	document.body.style.backgroundColor = newColor;
+	document.getElementById('loadQuote').style.backgroundColor = newColor;
+	if (randomQuotes.length == 0) {
+		for (i = 0; i < quoteContainer.length; i++)
+		{
+			randomQuotes.push(quoteContainer[i]);
+		}
+		quoteContainer = [];
+	}
 }
 
-var randomColor = ["IndianRed", "DarkOrange", "green", "indigo", "SteelBlue", "GoldenRod", "DarkSalmon", "DimGrey", "OliveDrab", "Sienna"];
-
-function getRandomColor() {
-	var randomNumber = Math.floor(Math.random() * 10); 
-	return randomColor[randomNumber];
-}
