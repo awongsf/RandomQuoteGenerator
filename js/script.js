@@ -19,9 +19,11 @@ var randomQuotes = [
 		tags : "acceptance, inspiration"
 	},
 	{
-		quote : "Education without values, as useful as it is, seems rather to make man a more clever devil.",
-		source : "C.S. Lewis",
-		tags : "education, values, knowledge"
+		quote : "Violence in the developing world is like grief in the developed world—it’s everywhere, but we just don’t see it.",
+		source : "Gary Haugen",
+		citation : "The Locust Effect",
+		year : 2014,
+		tags : "violence, poverty, justice"
 	},
 	{
 		quote : "We have a right to believe whatever we want, but not everything we believe is right.",
@@ -70,21 +72,31 @@ var randomQuotes = [
 
 var randomColor = ["IndianRed", "DarkOrange", "green", "indigo", "SteelBlue", "GoldenRod", "DarkSalmon", "DimGrey", "OliveDrab", "Sienna"];
 
-var quoteContainer = [];
+var usedQuotes = [];
 
+var usedColors = [];
+
+// Return a random quote object from randomQuotes and add a copy of it into usedQuotes array
 function getRandomQuote() {
 	var selector = Math.floor(Math.random() * randomQuotes.length);
-	quoteContainer.push(randomQuotes[selector]);
+	usedQuotes.push(randomQuotes[selector]);
 	return randomQuotes[selector];
 }
 
+// Return a random color from randomColor and add a copy of it into usedColors array
 function getRandomColor() {
 	var randomNumber = Math.floor(Math.random() * randomColor.length); 
+	usedColors.push(randomColor[randomNumber]);
 	return randomColor[randomNumber];
 }
 
+// Replace quote in quote-box div with a random quote and background color
 function printQuote() {
+	// Get a random quote and color, and store them in variables
 	var selectedQuote = getRandomQuote();
+	var newColor = getRandomColor();
+	// Construct HTML string using different properties of quote object
+	// The properties Citation, Year, and Tags are optional
 	var quoteHTML = '<p class="quote">' + selectedQuote.quote + '</p><p class="source">' + selectedQuote.source;
 	if ("citation" in selectedQuote)
 	{
@@ -99,17 +111,31 @@ function printQuote() {
 	{
 		quoteHTML = quoteHTML + '<p class="tags">Tags: ' + selectedQuote.tags+ '</p>';
 	}
+	// Remove the selected quote and color from their array
 	randomQuotes.splice(randomQuotes.indexOf(selectedQuote), 1);
-	var newColor = getRandomColor();
+	randomColor.splice(randomColor.indexOf(newColor), 1);
+	// Insert final HTML string into quote-box div
 	document.getElementById('quote-box').innerHTML = quoteHTML;
+	// Change background color to a new random color
 	document.body.style.backgroundColor = newColor;
 	document.getElementById('loadQuote').style.backgroundColor = newColor;
+	// When all the quotes have been used, refill the randomQuotes array
+	// and empty the usedQuotes array
 	if (randomQuotes.length == 0) {
-		for (i = 0; i < quoteContainer.length; i++)
+		for (i = 0; i < usedQuotes.length; i++)
 		{
-			randomQuotes.push(quoteContainer[i]);
+			randomQuotes.push(usedQuotes[i]);
 		}
-		quoteContainer = [];
+		usedQuotes = [];
+	}
+	// When all the colors have been used, refill the randomColor array
+	// and empty the usedColors array
+	if (randomColor.length == 0) {
+		for (i = 0; i < usedColors.length; i++)
+		{
+			randomColor.push(usedColors[i]);
+		}
+		usedColors = [];
 	}
 }
 
