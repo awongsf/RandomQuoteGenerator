@@ -124,22 +124,12 @@ function printQuote() {
 	if (randomQuotes.length === 0) {
 		randomQuotes = usedQuotes;
 		usedQuotes = [];
-		// for (var i = 0; i < usedQuotes.length; i++)
-		// {
-		// 	randomQuotes.push(usedQuotes[i]);
-		// }
-		// usedQuotes = [];
 	}
 	// When all the colors have been used, refill the randomColor array
 	// and empty the usedColors array
 	if (randomColor.length === 0) {
 		randomColor = usedColors;
 		usedColors = [];
-		// for (var n = 0; n < usedColors.length; n++)
-		// {
-		// 	randomColor.push(usedColors[n]);
-		// }
-		// usedColors = [];
 	}
 }
 
