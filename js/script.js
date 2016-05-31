@@ -121,8 +121,8 @@ function printQuote() {
 	document.getElementById('loadQuote').style.backgroundColor = newColor;
 	// When all the quotes have been used, refill the randomQuotes array
 	// and empty the usedQuotes array
-	if (randomQuotes.length == 0) {
-		for (i = 0; i < usedQuotes.length; i++)
+	if (randomQuotes.length === 0) {
+		for (var i = 0; i < usedQuotes.length; i++)
 		{
 			randomQuotes.push(usedQuotes[i]);
 		}
@@ -130,10 +130,10 @@ function printQuote() {
 	}
 	// When all the colors have been used, refill the randomColor array
 	// and empty the usedColors array
-	if (randomColor.length == 0) {
-		for (i = 0; i < usedColors.length; i++)
+	if (randomColor.length === 0) {
+		for (var n = 0; n < usedColors.length; n++)
 		{
-			randomColor.push(usedColors[i]);
+			randomColor.push(usedColors[n]);
 		}
 		usedColors = [];
 	}
